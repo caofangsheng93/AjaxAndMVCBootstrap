@@ -59,11 +59,106 @@ function Add() {
          //JSON.stringify(a)
          //"{"a":1,"b":2}"
         data: JSON.stringify(empObj),
-
-
+        type: "POST",
+        dataType: "json",
+        success: function (result) {
+            //添加成功，重新加载数据
+            LoadData();
+            //隐藏模态窗体
+            $("#myModal").modal("hide");
+            
+        },
+        error: function (result) {
+            alert(result.responseText);
+        }
     });
 
+}
+
+//通过ID获取Employee
+//js是弱类型的，函数的参数类型不用写
+function getbyID(employeeID) {
+    //设置文本框，边框的颜色
+    $('#Name').css('border-color', 'lightgrey');
+    $('#Age').css('border-color', 'lightgrey');
+    $('#State').css('border-color', 'lightgrey');
+    $('#Country').css('border-color', 'lightgrey');
+    
+    //一般只要5个参数
+    $.ajax({
+        url: "/Home/GetEmployeeById" + employeeID,
+        type: "GET",
+        dataType: "json",
+        success: function (result) {
+            //设置文本框的值
+            $("#EmployeeID").val(result.EmployeeID);
+            $("#Name").val(result.Name);
+            $("#Age").val(result.Age);
+            $("#State").val(result.State);
+            $("#Country").val(result.Country);
+
+            //显示模态窗体
+            //$("#myModal").show();
+            $('#myModal').modal('show');
+            //隐藏添加按钮
+            $("#btnAdd").hide();
+            //显示更新按钮
+            $("#btnUpdate").show();
+
+        },
+        error: function (result) {
+            alert(result.responseText);
+
+        }
+    });
+}
+
+
+//更新
+function Update() {
+    //验证
+    var res = validate();
+    if (res == false) {
+        return false;
+    }
+
+    var empObj = {
+        EmployeeID: $("#EmployeeID").val(),
+        Name: $("#Name").val(),
+        Age: $("#Age").val(),
+        State: $("#State").val(),
+        Country: $("#Country").val(),
+
+    };
+
+    $.ajax({
+        url: "/Home/UpdateEmployee",
+        data: JSON.stringify(empObj),//参数
+        dataType: "json",
+        type: "post",
+        success: function (result) {
+            //更新成功，加载数据，清空输入框，隐藏模态窗体
+            LoadData();
+            //清空输入框
+            $("#EmployeeID").val("");
+            $("#Name").val("");
+            $("#Age").val("");
+            $("#State").val("");
+            $("#Country").val("");
+
+            //$("#myModal").hide();
+            $('#myModal').modal('hide');
+        },
+        error: function (result) {
+            alert(result.responseText);
+        }
+    });
 
 }
+
+
+
+
+
 
 

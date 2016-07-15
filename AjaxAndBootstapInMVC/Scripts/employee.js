@@ -84,6 +84,7 @@ function Add() {
 
 //通过ID获取Employee
 //js是弱类型的，函数的参数类型不用写
+//获取详情之后，显示模态窗体
 function getbyID(employeeID) {
     //设置文本框，边框的颜色
     $('#Name').css('border-color', 'lightgrey');
@@ -155,7 +156,7 @@ function Update() {
             $("#State").val("");
             $("#Country").val("");
 
-            //$("#myModal").hide();
+            //$("#myModal").hide();//不能使用这个
             $('#myModal').modal('hide');
         },
         error: function (result) {

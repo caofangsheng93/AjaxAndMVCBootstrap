@@ -1,5 +1,4 @@
-﻿/// <reference path="jquery-1.9.1.js" />
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //加载数据
     LoadData();
 });
@@ -10,12 +9,14 @@ function LoadData() {
     //如果有参数的话,那么久还需要data参数
     //注意：双引号和单引号的嵌套原则
     $.ajax({
+        //页面初始化的时候，加载数据，绑定到table上
         url: "/Home/List",
         type: "GET",
         dataType: "json",
         //成功之后的回调函数
         success: function (result) {
             var html = "";
+            //each的第一个方法，厉害
             $.each(result, function (key, item) {
                 html += "<tr>";//tr标记要收尾呼应
                 html += "<td>" + item.EmployeeID + "</td>";
@@ -24,6 +25,7 @@ function LoadData() {
                 html += "<td>" + item.State + "</td>";
                 html += "<td>" + item.Country + "</td>";
                 //注意：为啥这最后的HTML最外层使用单引号‘’，因为<a href="">这里要是双引号
+                //点击编辑的时候，先根据ＩＤ获取数据，将获取到的数据，展示在弹出层上，然后用户可以进行修改
                 html += '<td><a href="#" onclick="return getbyID(' + item.EmployeeID + ')" >Edit</a>|<a href="#" onclick="return Delete(' + item.EmployeeID + ')">Delete</a></td>';
                 html += "<tr/>";//tr标记要收尾呼应
 
@@ -164,6 +166,7 @@ function Update() {
 }
 
 function Delete(empID) {
+    //删除的时候，先弹窗提示
     var ans = confirm("你确定要删除该条记录么？");
     if (ans) {
 

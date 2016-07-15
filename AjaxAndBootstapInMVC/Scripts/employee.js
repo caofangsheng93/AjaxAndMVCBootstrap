@@ -1,5 +1,6 @@
 ﻿/// <reference path="jquery-1.9.1.js" />
 $(document).ready(function () {
+    //加载数据
     LoadData();
 });
 
@@ -61,13 +62,15 @@ function Add() {
         data: JSON.stringify(empObj),
         type: "POST",
         //通过Post方式，添加需要添加 ：contentType: "application/json;charset=utf-8",
+        //不加这句话的话，用户输入的数据就传递不到后台控制器方法中
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             //添加成功，重新加载数据
             LoadData();
-            //隐藏模态窗体
+            //隐藏模态窗体【隐藏】
             $("#myModal").modal("hide");
+           // $("#myModal").hide(); //这样隐藏有问题
             
         },
         error: function (result) {
@@ -101,7 +104,7 @@ function getbyID(employeeID) {
             $("#Country").val(result.Country);
 
             //显示模态窗体
-            //$("#myModal").show();
+            //$("#myModal").show();//不能使用这个
             $('#myModal').modal('show');
             //隐藏添加按钮
             $("#btnAdd").hide();

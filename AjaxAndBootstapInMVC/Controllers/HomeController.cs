@@ -15,10 +15,10 @@ namespace AjaxAndBootstapInMVC.Controllers
         _context=new EmployeeDB();
         }
      
-        public ActionResult Index()
+        public JsonResult Index()
         {
-            return View();
-            //return Json(_context.GetAllEmployeeList(), JsonRequestBehavior.AllowGet);
+           
+            return Json(_context.GetAllEmployeeList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetEmployeeById(int id)

@@ -156,6 +156,82 @@ function Update() {
 
 }
 
+function Delete(empID) {
+    var ans = confirm("你确定要删除该条记录么？");
+    if (ans) {
+
+        $.ajax({
+            url: "/Home/DeleteEmployee" + empID,
+            type: "post",
+            dataType: "json",
+            success: function (result) {
+                LoadData();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+
+        });
+
+    }
+
+}
+
+function clearTextBox() {
+    $('#EmployeeID').val("");
+    $('#Name').val("");
+    $('#Age').val("");
+    $('#State').val("");
+    $('#Country').val("");
+    $('#btnUpdate').hide();
+    $('#btnAdd').show();
+    $('#Name').css('border-color', 'lightgrey');
+    $('#Age').css('border-color', 'lightgrey');
+    $('#State').css('border-color', 'lightgrey');
+    $('#Country').css('border-color', 'lightgrey');
+
+}
+
+//Valdidation using jquery  
+function validate() {
+    var isValid = true;
+    if ($('#Name').val().trim() == "") {
+        $('#Name').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#Name').css('border-color', 'lightgrey');
+    }
+    if ($('#Age').val().trim() == "") {
+        $('#Age').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#Age').css('border-color', 'lightgrey');
+    }
+    if ($('#State').val().trim() == "") {
+        $('#State').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#State').css('border-color', 'lightgrey');
+    }
+    if ($('#Country').val().trim() == "") {
+        $('#Country').css('border-color', 'Red');
+        isValid = false;
+    }
+    else {
+        $('#Country').css('border-color', 'lightgrey');
+    }
+    return isValid;
+}
+
+
+
+
+
+
+
 
 
 

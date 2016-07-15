@@ -43,7 +43,7 @@ function Add() {
     if (res == false) {
         return false;
     }
-    //创建一个empobj对象,传递参数
+    //创建一个empobj对象,传递参数，然后通过JSON.stringify解析对象成字符串
     var empObj = {
         EmployeeID: $("#EmployeeID").val(),
         Name: $("#Name").val(),
@@ -172,6 +172,7 @@ function Delete(empID) {
             type: "post",
             dataType: "json",
             success: function (result) {
+                //删除成功之后，重新加载数据
                 LoadData();
             },
             error: function (errormessage) {

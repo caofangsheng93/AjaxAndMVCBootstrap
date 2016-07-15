@@ -60,6 +60,8 @@ function Add() {
          //"{"a":1,"b":2}"
         data: JSON.stringify(empObj),
         type: "POST",
+        //通过Post方式，添加需要添加 ：contentType: "application/json;charset=utf-8",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             //添加成功，重新加载数据
@@ -86,8 +88,9 @@ function getbyID(employeeID) {
     
     //一般只要5个参数
     $.ajax({
-        url: "/Home/GetEmployeeById" + employeeID,
+        url: "/Home/GetEmployeeById/" + employeeID,
         type: "GET",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (result) {
             //设置文本框的值
@@ -134,6 +137,7 @@ function Update() {
     $.ajax({
         url: "/Home/UpdateEmployee",
         data: JSON.stringify(empObj),//参数
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
         type: "post",
         success: function (result) {
@@ -161,7 +165,7 @@ function Delete(empID) {
     if (ans) {
 
         $.ajax({
-            url: "/Home/DeleteEmployee" + empID,
+            url: "/Home/DeleteEmployee/" + empID,
             type: "post",
             dataType: "json",
             success: function (result) {

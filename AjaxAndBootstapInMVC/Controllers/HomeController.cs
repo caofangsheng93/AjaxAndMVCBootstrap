@@ -9,23 +9,28 @@ namespace AjaxAndBootstapInMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private EmployeeDB _context;
+        private EmployeeDB _context=null;
         public HomeController()
         {
         _context=new EmployeeDB();
         }
      
-        public JsonResult Index()
+        public ActionResult Index()
         {
-           
+            return View();
+            
+        }
+        public JsonResult List()
+        {
             return Json(_context.GetAllEmployeeList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetEmployeeById(int id)
         {
-            return Json(_context.GetAllEmployeeList().Where(x => x.EmployeeID == id), JsonRequestBehavior.AllowGet); 
+            return Json(_context.GetAllEmployeeList().Find(x => x.EmployeeID == id), JsonRequestBehavior.AllowGet); 
         }
 
+        [HttpPost]
         public JsonResult AddEmployee(Employee emp)
         {
             return Json(_context.AddEmployee(emp), JsonRequestBehavior.AllowGet);

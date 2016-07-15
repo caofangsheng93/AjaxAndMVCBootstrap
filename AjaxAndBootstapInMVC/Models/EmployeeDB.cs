@@ -30,7 +30,7 @@ namespace AjaxAndBootstapInMVC.Models
             List<Employee> listEmp = new List<Employee>();
 
             //1.创建连接对象【连接字符串】
-            using (SqlConnection conn = new SqlConnection("DbConnectionString"))
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
             { 
                //2.创建命令对象
                 SqlCommand cmd = new SqlCommand();
@@ -83,6 +83,8 @@ namespace AjaxAndBootstapInMVC.Models
                 cmd.Connection = conn;
 
                 //参数
+                cmd.Parameters.AddWithValue("@Id", emp.EmployeeID);  //这里也需要
+
                 cmd.Parameters.AddWithValue("@Name", emp.Name);
                 cmd.Parameters.AddWithValue("@Age", emp.Age);
                 cmd.Parameters.AddWithValue("@State", emp.State);
